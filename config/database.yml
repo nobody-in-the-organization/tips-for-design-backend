@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
-  database: tips-for-design_production
-  username: tips-for-design
-  password: <%= ENV['TIPS-FOR-DESIGN_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  # database: tips-for-design_production
+  # username: tips-for-design
+  # password: <%= ENV['TIPS-FOR-DESIGN_DATABASE_PASSWORD'] %>
+

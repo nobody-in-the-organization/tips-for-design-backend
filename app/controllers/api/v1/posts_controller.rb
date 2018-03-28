@@ -1,9 +1,10 @@
 class Api::V1::PostsController < Api::V1::ApplicationController
+  before_action :authenticate_user!
   before_action :set_post, only: [:show, :update, :destroy]
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = current_user.posts
 
     render json: @posts
   end
@@ -15,10 +16,10 @@ class Api::V1::PostsController < Api::V1::ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
 
     if @post.save
-      render json: @post, status: :created, location: @post
+      render json: @post, status: :created#, location: @post
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -41,7 +42,7 @@ class Api::V1::PostsController < Api::V1::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = current_user.posts.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

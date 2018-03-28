@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  belongs_to :user
+
   before_create :generate_uid
 
   acts_as_taggable
